@@ -59,6 +59,11 @@ namespace GraphSearching
             get { return costs.AsReadOnly(); }
         }
 
+        public BallColor BallColor {
+            get => ballColor;
+            set => ballColor = value;
+        }
+
         #endregion
 
         #region Methods
