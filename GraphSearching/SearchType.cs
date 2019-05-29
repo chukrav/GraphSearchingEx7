@@ -11,4 +11,13 @@ namespace GraphSearching
         BreadthFirst,
         DepthFirst
     }
+
+    enum BallColor {
+        rBall,
+        gBall,
+        cBall,
+        mBall,
+        yBall,
+        empty
+    }
 }

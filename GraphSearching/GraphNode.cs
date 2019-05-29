@@ -15,6 +15,7 @@ namespace GraphSearching
         #region Fields
 
         T value;
+        BallColor ballColor;
         List<GraphNode<T>> neighbors;
         List<int> costs;
 
@@ -31,6 +32,7 @@ namespace GraphSearching
             this.value = value;
             neighbors = new List<GraphNode<T>>();
             costs = new List<int>();
+            ballColor = BallColor.empty;
         }
 
         #endregion
