@@ -20,8 +20,8 @@ namespace GraphSearching
             //testGraphEx7(graph);
 
             Graph<int> graph = BuildLinesGraph.BuildGraphLin(5);
-            GraphNode<int> node = graph.Find(5);
-            node.BallColor = BallColor.rBall;
+            graph.Find(5).BallColor = BallColor.rBall;
+            graph.Find(9).BallColor = BallColor.rBall;
             Console.WriteLine("+++++ Ball color: " + graph.Find(5).BallColor);
             testLinesSquare(graph,1,10);
 
@@ -152,36 +152,29 @@ namespace GraphSearching
                     searchList.RemoveFirst();
 
                     // explore each neighbor of this node
-                    foreach (GraphNode<int> neighbor in currentNode.Neighbors)
-                    {
-                        // check for found finish
-                        if (neighbor.Value == finish)
-                        {
-                            pathNodes.Add(neighbor, new PathNodeInfo<int>(currentNode, 
-                                currentNode.GetEdgeCost(neighbor)));
-                            return ConvertPathToString(neighbor, pathNodes);
-                        }
-                        else if (pathNodes.ContainsKey(neighbor))
-                        {
-                            // found a cycle, so skip this neighbor
-                            continue;
-                        }
-                        else
-                        {
-                            // link neighbor to current node in path
-                            pathNodes.Add(neighbor, new PathNodeInfo<int>(currentNode,
-                                currentNode.GetEdgeCost(neighbor)));
+                    foreach (GraphNode<int> neighbor in currentNode.Neighbors) {
+                        if (neighbor.BallColor == BallColor.empty) {
+                            // check for found finish
+                            if (neighbor.Value == finish) {
+                                pathNodes.Add(neighbor, new PathNodeInfo<int>(currentNode,
+                                    currentNode.GetEdgeCost(neighbor)));
+                                return ConvertPathToString(neighbor, pathNodes);
+                            } else if (pathNodes.ContainsKey(neighbor)) {
+                                // found a cycle, so skip this neighbor
+                                continue;
+                            } else {
+                                // link neighbor to current node in path
+                                pathNodes.Add(neighbor, new PathNodeInfo<int>(currentNode,
+                                    currentNode.GetEdgeCost(neighbor)));
 
-                            // add neighbor to front or back of search list
-                            if (searchType == SearchType.DepthFirst)
-                            {
-                                searchList.AddFirst(neighbor);
+                                // add neighbor to front or back of search list
+                                if (searchType == SearchType.DepthFirst) {
+                                    searchList.AddFirst(neighbor);
+                                } else {
+                                    searchList.AddLast(neighbor);
+                                }
+                                Console.WriteLine("Just added " + neighbor.Value + " to search list");
                             }
-                            else
-                            {
-                                searchList.AddLast(neighbor);
-                            }
-                            Console.WriteLine("Just added " + neighbor.Value + " to search list");
                         }
                     }
                 }
