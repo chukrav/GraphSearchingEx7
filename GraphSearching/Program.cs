@@ -20,6 +20,9 @@ namespace GraphSearching
             //testGraphEx7(graph);
 
             Graph<int> graph = BuildLinesGraph.BuildGraphLin(5);
+            GraphNode<int> node = graph.Find(5);
+            node.BallColor = BallColor.rBall;
+            Console.WriteLine("+++++ Ball color: " + graph.Find(5).BallColor);
             testLinesSquare(graph,1,10);
 
 
